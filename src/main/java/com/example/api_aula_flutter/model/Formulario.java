@@ -1,8 +1,12 @@
 package com.example.api_aula_flutter.model;
 
 import com.example.api_aula_flutter.model.campos.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
+
 import java.util.List;
 
 @Data
@@ -14,12 +18,18 @@ public class Formulario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_formulario", updatable = false, nullable = false)
+    private Long id;
+
+    @UuidGenerator
     @Column(name = "uuid_formulario")
     private String uuid;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "uuid_pessoa_formulario", referencedColumnName = "uuid_pessoa")
+    @JoinColumn(name = "id_pessoa_formulario", referencedColumnName = "id_pessoa")
+    @JsonManagedReference
     private Pessoa pessoa;
+
 
     // Responsável Técnico
     @Column(name = "has_responsavel_tecnico")
@@ -133,6 +143,7 @@ public class Formulario {
 
     // Produção
     @OneToMany(mappedBy = "formulario", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Producao> producoes;
 
     // Forma Jovem
@@ -140,25 +151,31 @@ public class Formulario {
     private Double areaFormaJovem;
 
     @OneToMany(mappedBy = "formulario", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<FormaJovem> formasJovem;
 
     // Ornamental
     @OneToMany(mappedBy = "formulario", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<ProducaoOrnamental> producoesOrnamental;
 
     // Aquisição de formas jovens
     @OneToMany(mappedBy = "formulario", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<AquisicaoJovem> aquisicoesFormaJovem;
 
     // Aquisição de Ração
     @OneToMany(mappedBy = "formulario", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<AquisicaoRacao> aquisicoesRacao;
 
     // Comercialização por espécie
     @OneToMany(mappedBy = "formulario", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Comercializacao> comercializacaoEspecie;
 
     // Produção de Ornamentais
     @OneToMany(mappedBy = "formulario", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<ProducaoOrnamentais> producoesOrnamentais;
 }

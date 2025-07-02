@@ -1,8 +1,10 @@
 package com.example.api_aula_flutter.model.campos;
 
 import com.example.api_aula_flutter.model.Formulario;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
@@ -15,12 +17,12 @@ public class Producao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_producao", updatable = false, nullable = false)
+    private Long id;
+
+    @UuidGenerator
     @Column(name = "uuid_producao")
     private UUID uuid;
-
-    @ManyToOne
-    @JoinColumn(name = "uuid_formulario_producao", referencedColumnName = "uuid_formulario")
-    private Formulario formulario;
 
     @Column(name = "especie_producao")
     private String especie;
@@ -30,4 +32,9 @@ public class Producao {
 
     @Column(name = "unidades_producao")
     private Integer unidades;
+
+    @ManyToOne
+    @JoinColumn(name = "id_formulario_producao", referencedColumnName = "id_formulario")
+    @JsonBackReference
+    private Formulario formulario;
 }

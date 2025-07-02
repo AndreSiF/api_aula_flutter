@@ -1,8 +1,10 @@
 package com.example.api_aula_flutter.model.campos;
 
 import com.example.api_aula_flutter.model.Formulario;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 import org.springframework.scheduling.support.SimpleTriggerContext;
 
 import java.util.UUID;
@@ -16,11 +18,15 @@ public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_pessoa", updatable = false, nullable = false)
+    private Long id;
+
+    @UuidGenerator
     @Column(name = "uuid_pessoa")
     private UUID uuid;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "uuid_formulario_pessoa", referencedColumnName = "uuid_formulario")
+    @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL)
+    @JsonBackReference
     private Formulario formulario;
 
     @Column(name = "nome_pessoa")

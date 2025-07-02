@@ -1,8 +1,12 @@
 package com.example.api_aula_flutter.controller;
 
 import com.example.api_aula_flutter.model.Formulario;
+import com.example.api_aula_flutter.model.campos.Producao;
 import com.example.api_aula_flutter.repository.FormularioRepository;
+import com.example.api_aula_flutter.service.FormularioService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,15 +16,17 @@ import java.util.List;
 public class FormularioController {
 
     @Autowired
-    private FormularioRepository formularioRepository;
+    private FormularioService formularioService;
 
     @GetMapping
     public List<Formulario> getAllFormularios() {
-        return formularioRepository.findAll();
+        return formularioService.getFormularios();
     }
 
     @PostMapping
-    public Formulario createFormulario(@RequestBody Formulario formulario) {
-        return formularioRepository.save(formulario);
+    @Transactional
+    public ResponseEntity<Formulario> salvar(@RequestBody Formulario formulario) {
+        Formulario salvo = formularioService.salvarFormulario(formulario);
+        return ResponseEntity.ok(salvo);
     }
 }
