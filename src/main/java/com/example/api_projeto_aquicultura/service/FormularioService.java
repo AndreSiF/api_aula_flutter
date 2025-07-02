@@ -1,8 +1,8 @@
-package com.example.api_aula_flutter.service;
+package com.example.api_projeto_aquicultura.service;
 
-import com.example.api_aula_flutter.model.Formulario;
-import com.example.api_aula_flutter.model.campos.*;
-import com.example.api_aula_flutter.repository.FormularioRepository;
+import com.example.api_projeto_aquicultura.model.Formulario;
+import com.example.api_projeto_aquicultura.model.campos.*;
+import com.example.api_projeto_aquicultura.repository.FormularioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,5 +55,9 @@ public class FormularioService {
 
     public List<Formulario> getFormularios(){
         return formularioRepository.findAll();
+    }
+
+    public Formulario findById(Long id) {
+        return formularioRepository.findById(id).get();
     }
 }

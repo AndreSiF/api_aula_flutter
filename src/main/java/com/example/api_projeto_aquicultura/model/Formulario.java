@@ -1,7 +1,6 @@
-package com.example.api_aula_flutter.model;
+package com.example.api_projeto_aquicultura.model;
 
-import com.example.api_aula_flutter.model.campos.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.api_projeto_aquicultura.model.campos.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import jakarta.persistence.*;

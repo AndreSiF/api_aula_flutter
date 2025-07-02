@@ -1,4 +1,4 @@
-package com.example.api_aula_flutter;
+package com.example.api_projeto_aquicultura;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

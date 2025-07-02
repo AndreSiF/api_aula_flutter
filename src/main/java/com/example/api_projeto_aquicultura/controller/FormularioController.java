@@ -1,9 +1,7 @@
-package com.example.api_aula_flutter.controller;
+package com.example.api_projeto_aquicultura.controller;
 
-import com.example.api_aula_flutter.model.Formulario;
-import com.example.api_aula_flutter.model.campos.Producao;
-import com.example.api_aula_flutter.repository.FormularioRepository;
-import com.example.api_aula_flutter.service.FormularioService;
+import com.example.api_projeto_aquicultura.model.Formulario;
+import com.example.api_projeto_aquicultura.service.FormularioService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/formularios")
+@CrossOrigin(origins = "http://localhost:4200")
 public class FormularioController {
 
     @Autowired
@@ -21,6 +20,11 @@ public class FormularioController {
     @GetMapping
     public List<Formulario> getAllFormularios() {
         return formularioService.getFormularios();
+    }
+
+    @GetMapping("/{id}")
+    public Formulario getFormulario(@PathVariable Long id) {
+        return formularioService.findById(id);
     }
 
     @PostMapping
